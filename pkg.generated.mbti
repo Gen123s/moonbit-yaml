@@ -1,0 +1,51 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "user/yaml"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn parse(String) -> Yaml raise YamlError
+
+pub fn parse_documents(String) -> Array[Yaml] raise YamlError
+
+pub fn to_yaml_string(Yaml) -> String
+
+// Errors
+pub(all) suberror YamlError {
+  YamlError(String)
+} derive(@debug.Debug)
+pub fn YamlError::output(Self, &Logger) -> Unit
+pub fn YamlError::to_repr(Self) -> @debug.Repr
+pub fn YamlError::to_string(Self) -> String
+pub impl Show for YamlError
+
+// Types and methods
+pub(all) enum Yaml {
+  Null
+  Bool(Bool)
+  Int(Int64)
+  Float(Double)
+  Str(String)
+  Arr(Array[Yaml])
+  Map(Array[(Yaml, Yaml)])
+} derive(Eq, @debug.Debug)
+pub fn Yaml::as_array(Self) -> Array[Self]?
+pub fn Yaml::as_bool(Self) -> Bool?
+pub fn Yaml::as_float(Self) -> Double?
+pub fn Yaml::as_int(Self) -> Int64?
+pub fn Yaml::as_str(Self) -> String?
+pub fn Yaml::equal(Self, Self) -> Bool
+pub fn Yaml::get(Self, String) -> Self?
+pub fn Yaml::get_path(Self, String) -> Self?
+pub fn Yaml::not_equal(Self, Self) -> Bool
+pub fn Yaml::output(Self, &Logger) -> Unit
+pub fn Yaml::to_repr(Self) -> @debug.Repr
+pub fn Yaml::to_string(Self) -> String
+pub fn Yaml::to_yaml(Self) -> String
+pub impl Show for Yaml
+
+// Type aliases
+
+// Traits
