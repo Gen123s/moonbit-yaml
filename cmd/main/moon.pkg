@@ -1,0 +1,5 @@
+import {
+  "user/yaml",
+}
+
+pkgtype(kind: "executable")
