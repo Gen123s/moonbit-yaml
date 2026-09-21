@@ -4,11 +4,15 @@ YAML 1.2 parser and emitter for MoonBit.
 
 **Status: early development** (MoonBit 黑客松 2026 参赛项目)
 
-`moonbit-yaml` aims to provide the MoonBit ecosystem with a complete, pure
-MoonBit implementation of YAML — the most widely used human-written
-configuration format (docker-compose, Kubernetes, GitHub Actions, CI/CD,
-OpenAPI...). Today the ecosystem has TOML (bobzhang/toml), XML (Milky2018/xml)
-and built-in JSON, but no YAML parser. This project fills that gap.
+`moonbit-yaml` provides a YAML 1.2 conformance-oriented implementation for
+the MoonBit ecosystem — pure MoonBit, with round-trip emission and located
+errors, targeting configuration toolchains (docker-compose, Kubernetes,
+GitHub Actions, CI/CD, OpenAPI...). The ecosystem already has TOML
+(bobzhang/toml), XML (Milky2018/xml) and built-in JSON;
+[moonbit-community/yaml](https://mooncakes.io/docs/moonbit-community/yaml)
+covers a simplified YAML subset with JSON output. This project takes the
+conformance track: full YAML 1.2 core-schema support validated against the
+official yaml-test-suite (see "Differences from moonbit-community/yaml" below).
 
 ## Features (planned / in progress)
 
@@ -25,6 +29,20 @@ and built-in JSON, but no YAML parser. This project fills that gap.
 - [x] Emitter (`to_yaml_string`) with round-trip guarantee and safe quoting
 - [ ] yaml-test-suite conformance harness
 - [ ] Streaming/event API
+
+## Differences from moonbit-community/yaml
+
+[moonbit-community/yaml](https://mooncakes.io/docs/moonbit-community/yaml)
+targets a simplified YAML subset with JSON conversion. This project
+differentiates on:
+
+- Native `Yaml` value model (no JSON-flattening loss of structure)
+- Round-trip emission (`parse -> to_yaml_string`) with comment preservation (planned)
+- Located errors (`ParseError` with line/column and snippet)
+- Conformance validated against the official yaml-test-suite
+
+A per-feature comparison against actual upstream behavior will be published
+here as measured results come in.
 
 ## Usage
 
