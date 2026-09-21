@@ -4,17 +4,17 @@ English | [简体中文](README.zh-CN.md)
 
 YAML 1.2 parser and emitter for MoonBit.
 
-**Status: early development** (在MoonBit 黑客松 2026 时写的)
+**Status: early development**
 
-`moonbit-yaml` provides a YAML 1.2 conformance-oriented implementation for
+`moonbit-yaml` provides a YAML 1.2 conformance-oriented implementation
 the MoonBit ecosystem — pure MoonBit, with round-trip emission and located
 errors, targeting configuration toolchains (docker-compose, Kubernetes,
 GitHub Actions, CI/CD, OpenAPI...). The ecosystem already has TOML
-(bobzhang/toml), XML (Milky2018/xml) and built-in JSON;
-[moonbit-community/yaml](https://mooncakes.io/docs/moonbit-community/yaml)
-covers a simplified YAML subset with JSON output. This project takes the
-conformance track: full YAML 1.2 core-schema support validated against the
-official yaml-test-suite (see "Differences from moonbit-community/yaml" below).
+(bobzhang/toml), XML (Milky2018/xml) and built-in JSON; a simplified YAML
+subset is also covered by
+[moonbit-community/yaml](https://mooncakes.io/docs/moonbit-community/yaml).
+This project takes the conformance track: full YAML 1.2 core-schema support
+validated against the official yaml-test-suite.
 
 ## Features (planned / in progress)
 
@@ -31,20 +31,6 @@ official yaml-test-suite (see "Differences from moonbit-community/yaml" below).
 - [x] Emitter (`to_yaml_string`) with round-trip guarantee and safe quoting
 - [ ] yaml-test-suite conformance harness
 - [ ] Streaming/event API
-
-## Differences from moonbit-community/yaml
-
-[moonbit-community/yaml](https://mooncakes.io/docs/moonbit-community/yaml)
-targets a simplified YAML subset with JSON conversion. This project
-differentiates on:
-
-- Native `Yaml` value model (no JSON-flattening loss of structure)
-- Round-trip emission (`parse -> to_yaml_string`) with comment preservation (planned)
-- Located errors (`ParseError` with line/column and snippet)
-- Conformance validated against the official yaml-test-suite
-
-A per-feature comparison against actual upstream behavior will be published
-here as measured results come in.
 
 ## Usage
 
@@ -128,5 +114,4 @@ implementations in other ecosystems:
 
 ## License
 
-Apache-2.0 (see LICENSE). This project is a contest entry of the
-2026 MoonBit 黑客松 (September round).
+Apache-2.0 (see LICENSE).

@@ -4,7 +4,7 @@
 
 MoonBit 的 YAML 1.2 解析与序列化库。
 
-**状态：早期开发中**（2026 MoonBit 九月黑客松参赛项目）
+**状态：早期开发中**
 
 ## 这个项目有什么用？
 
@@ -19,11 +19,10 @@ MoonBit 的 YAML 1.2 解析与序列化库。
 - 各类应用的 `config.yaml`
 
 MoonBit 生态已有 TOML（bobzhang/toml）、XML（Milky2018/xml）和内置 JSON，
-但 YAML 的解析能力只有
-[moonbit-community/yaml](https://mooncakes.io/docs/moonbit-community/yaml)
-覆盖的"简化子集"。本项目的定位是**规范兼容路线**：完整支持 YAML 1.2
-core schema，并以官方 yaml-test-suite 一致性测试为验收基准（见下文
-"与 moonbit-community/yaml 的差异"）。
+社区也有覆盖简化子集的
+[moonbit-community/yaml](https://mooncakes.io/docs/moonbit-community/yaml)。
+本项目的定位是**规范兼容路线**：完整支持 YAML 1.2
+core schema，并以官方 yaml-test-suite 一致性测试为验收基准。
 
 典型用途：
 
@@ -51,18 +50,6 @@ core schema，并以官方 yaml-test-suite 一致性测试为验收基准（见�
 - [x] 序列化器（`to_yaml_string`），往返（round-trip）保证与安全引号策略
 - [ ] yaml-test-suite 一致性测试框架
 - [ ] 流式 / 事件级 API
-
-## 与 moonbit-community/yaml 的差异
-
-[moonbit-community/yaml](https://mooncakes.io/docs/moonbit-community/yaml)
-面向"简化的 YAML 子集 + 转换为 JSON"。本项目的差异点：
-
-- 原生 `Yaml` 值模型（不被 JSON 扁平化、不丢结构）
-- 往返序列化（`parse -> to_yaml_string`），注释保留（规划中）
-- 带位置的错误报告（`ParseError` 携带行/列与上下文片段）
-- 以官方 yaml-test-suite 为一致性验证基准
-
-与上游实际行为的逐项对比，将随实测结果在此处更新。
 
 ## 使用方法
 
@@ -146,4 +133,4 @@ CI 在每次 push 到 `main` 和所有 PR 上以 `--deny-warn` 运行以上全�
 
 ## 许可证
 
-Apache-2.0（见 LICENSE）。本项目为 2026 MoonBit 九月黑客松参赛作品。
+Apache-2.0（见 LICENSE）。
