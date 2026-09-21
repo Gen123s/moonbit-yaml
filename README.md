@@ -29,8 +29,22 @@ validated against the official yaml-test-suite.
 - [x] Merge keys (`<<: *base`, `<<: [*a, *b]`)
 - [x] Multi-document streams (`---` / `...`)
 - [x] Emitter (`to_yaml_string`) with round-trip guarantee and safe quoting
+- [x] **Comment-preserving parse/emit** (`parse_commented` / `CNode`):
+  edit a value, write the file back, every comment and blank line survives
 - [ ] yaml-test-suite conformance harness
 - [ ] Streaming/event API
+
+## The highlight: edit YAML without destroying it
+
+Standard parse → modify → serialize loses all comments. `parse_commented`
+keeps them attached to the tree, so round-tripping a config file after an
+edit preserves every comment, blank line, anchor and merge key:
+
+```moonbit
+let doc = @yaml.parse_commented(source)
+doc.root.set_path("services.web.image", Str("caddy:2"))
+print(doc.to_yaml_string()) // comments intact, only the value changed
+```
 
 ## Usage
 
