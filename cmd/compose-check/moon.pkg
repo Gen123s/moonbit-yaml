@@ -1,0 +1,8 @@
+// Learn more about moon.pkg configuration:
+// https://docs.moonbitlang.com/en/latest/toolchain/moon/module.html
+
+import {
+  "Gen123s/yaml",
+}
+
+pkgtype(kind: "executable")

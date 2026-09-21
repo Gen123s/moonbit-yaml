@@ -89,6 +89,19 @@ Parse a real docker-compose file from the command line:
 moon run cmd/main
 ```
 
+### Example app: compose-doctor
+
+`cmd/compose-check` is a small docker-compose.yml health checker built **on
+top of this library** — a live example of consuming the `Yaml` value model:
+
+```bash
+moon run cmd/compose-check
+```
+
+It checks a healthy compose document (PASS) and a broken one, reporting
+missing `image`/`build`, malformed port mappings, port range violations,
+dangling `depends_on` references, and unknown top-level keys.
+
 ## Development
 
 ```bash
