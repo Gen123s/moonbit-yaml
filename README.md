@@ -2,7 +2,7 @@
 
 YAML 1.2 parser and emitter for MoonBit.
 
-**Status: early development** (MoonBit 黑客松 2026 参赛项目)
+**Status: early development** (在MoonBit 黑客松 2026 时写的)
 
 `moonbit-yaml` provides a YAML 1.2 conformance-oriented implementation for
 the MoonBit ecosystem — pure MoonBit, with round-trip emission and located
