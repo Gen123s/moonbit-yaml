@@ -46,19 +46,44 @@ here as measured results come in.
 
 ## Usage
 
+### Install
+
+```bash
+# In your MoonBit project directory (after the package is published):
+moon add Gen123s/yaml
+```
+
+Then add `import "Gen123s/yaml"` (as `@yaml`) to your `moon.pkg`.
+
+### Parse a YAML document
+
 ```moonbit
 let doc = @yaml.parse("name: MoonBit\nfeatures:\n  - wasm\n  - native\n")
 inspect(doc.get("name"), content="Some(Str(MoonBit))")
 ```
 
-Query nested paths, round-trip back to text:
+### Query nested paths
 
 ```moonbit
 let image = doc.get_path("services.web.image")  // dotted path lookup
-let text = @yaml.to_yaml_string(doc)            // emit back to YAML
 ```
 
-Run the demo CLI:
+### Emit back to YAML (round-trip)
+
+```moonbit
+let text = @yaml.to_yaml_string(doc)            // Yaml -> YAML text
+```
+
+### Anchors, merge keys, multi-document streams
+
+```moonbit
+// Supported: &anchor / *alias, `<<:` merge keys, `---` document streams —
+// see the test suites under yaml_test.mbt / features_test.mbt for examples.
+```
+
+### Demo CLI
+
+Parse a real docker-compose file from the command line:
 
 ```bash
 moon run cmd/main
@@ -67,10 +92,14 @@ moon run cmd/main
 ## Development
 
 ```bash
-moon check   # type check
-moon test    # run tests
-moon fmt     # format
+moon check          # type check
+moon test           # run tests
+moon fmt --check    # format check
+moon run cmd/main   # demo CLI
 ```
+
+CI runs all of the above with `--deny-warn` on every push to `main` and on
+pull requests (see `.github/workflows/ci.yml`).
 
 ## References
 
