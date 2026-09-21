@@ -8,7 +8,7 @@
 ///|
 /// A healthy compose file.
 const GOOD : String =
-  (#|version: "3.9"
+  #|version: "3.9"
   #|services:
   #|  web:
   #|    image: nginx:1.27
@@ -19,12 +19,11 @@ const GOOD : String =
   #|  db:
   #|    image: postgres:16
   #|
-  )
 
 ///|
 /// A broken compose file: missing image, bad port, dangling depends_on.
 const BAD : String =
-  (#|version: "3.9"
+  #|version: "3.9"
   #|services:
   #|  web:
   #|    ports:
@@ -38,7 +37,6 @@ const BAD : String =
   #|workers:
   #|  - x
   #|
-  )
 
 ///|
 fn main {
@@ -78,7 +76,9 @@ fn run_check(label : String, source : String) -> Unit {
           println("ERROR: \{e}")
         }
         println("")
-        println("FAIL: \{errors.length()} error(s), \{warnings.length()} warning(s).")
+        println(
+          "FAIL: \{errors.length()} error(s), \{warnings.length()} warning(s).",
+        )
       }
     }
     None => println("parse error")
@@ -89,7 +89,7 @@ fn run_check(label : String, source : String) -> Unit {
 fn check(
   doc : @yaml.Yaml,
   errors : Array[String],
-  warnings : Array[String]
+  warnings : Array[String],
 ) -> Unit {
   // top-level must be a mapping
   let services : @yaml.Yaml? = match doc {
@@ -104,13 +104,13 @@ fn check(
     @yaml.Yaml::Map(kvs) =>
       for (k, _) in kvs {
         match k {
-          @yaml.Yaml::Str("version") |
-          @yaml.Yaml::Str("services") |
-          @yaml.Yaml::Str("volumes") |
-          @yaml.Yaml::Str("networks") |
-          @yaml.Yaml::Str("configs") |
-          @yaml.Yaml::Str("secrets") |
-          @yaml.Yaml::Str("name") => ()
+          @yaml.Yaml::Str("version")
+          | @yaml.Yaml::Str("services")
+          | @yaml.Yaml::Str("volumes")
+          | @yaml.Yaml::Str("networks")
+          | @yaml.Yaml::Str("configs")
+          | @yaml.Yaml::Str("secrets")
+          | @yaml.Yaml::Str("name") => ()
           @yaml.Yaml::Str(other) =>
             warnings.push("unknown top-level key '\{other}'")
           _ => ()
@@ -157,7 +157,7 @@ fn check_service(
   svc : @yaml.Yaml,
   names : Array[String],
   errors : Array[String],
-  warnings : Array[String]
+  warnings : Array[String],
 ) -> Unit {
   // service config must be a mapping
   match svc {
@@ -170,9 +170,7 @@ fn check_service(
   // must specify image or build
   match (svc.get("image"), svc.get("build")) {
     (None, None) =>
-      errors.push(
-        "service '\{name}': neither 'image' nor 'build' is specified",
-      )
+      errors.push("service '\{name}': neither 'image' nor 'build' is specified")
     (Some(v), None) =>
       if v is (@yaml.Yaml::Null | @yaml.Yaml::Str("")) {
         warnings.push("service '\{name}': 'image' is empty")
@@ -192,9 +190,7 @@ fn check_service(
             }
           @yaml.Yaml::Int(n) =>
             if n < 0L || n > 65535L {
-              errors.push(
-                "service '\{name}': port \{n} out of range (0-65535)",
-              )
+              errors.push("service '\{name}': port \{n} out of range (0-65535)")
             }
           _ =>
             errors.push("service '\{name}': port entry must be a string or int")
