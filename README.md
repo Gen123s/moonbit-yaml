@@ -1,5 +1,7 @@
 # moonbit-yaml
 
+English | [简体中文](README.zh-CN.md)
+
 YAML 1.2 parser and emitter for MoonBit.
 
 **Status: early development** (在MoonBit 黑客松 2026 时写的)
